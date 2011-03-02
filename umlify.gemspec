@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.summary = "umlify is a tool that creates class diagrams from your code."
   spec.files = %w[
     Rakefile
-    README
+    README.md
     bin/umlify
     lib/umlify.rb
     lib/umlify/version.rb

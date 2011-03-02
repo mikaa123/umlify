@@ -40,7 +40,7 @@ module Umlify
           puts "about to parse..."
           @parser = Parser.new files
 
-          if classes = @p.parse_sources!
+          if classes = @parser.parse_sources!
             @diagram = Diagram.new
 
             @diagram.create do

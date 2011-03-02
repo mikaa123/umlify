@@ -40,15 +40,15 @@ module Umlify
           puts "about to parse..."
           @parser = Parser.new files
 
-          if classes = p.parse_sources!
+          if classes = @p.parse_sources!
             @diagram = Diagram.new
 
-            diagram.create do
+            @diagram.create do
               classes.each {|c| add c}
             end
 
             File.open("uml.html", 'w') do |file|
-              file << diagram.export
+              file << @diagram.export
             end
 
             puts "Saved in uml.html"

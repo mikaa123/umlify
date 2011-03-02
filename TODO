@@ -1,0 +1,12 @@
+Features
+========
+* Support inheritance
+* Support modules (yUML doesn't seem to support Packages yet)
+* Make classes in the html file clickable, so that it links to
+  the corresponding RDoc file
+* Add annotation - need to define how, and what -
+
+Maintainance
+============
+* Add a Diagram#valid_statement? method
+* Improve the parsing (use another system than regexp?)

@@ -36,7 +36,7 @@ module Umlify
 
       else
         puts "umlifying"
-        if files = get_files_from_dir(ARGV[0])
+        if files = get_files_from_dir(@args[0])
           puts "about to parse..."
           @parser = Parser.new files
 

@@ -1,16 +1,16 @@
-\                            _ _  __
-\                           | (_)/ _|
-\            _   _ _ __ ___ | |_| |_ _   _
-\           | | | | '_ ` _ \| | |  _| | | |
-\           | |_| | | | | | | | | | | |_| |
-\            \__,_|_| |_| |_|_|_|_|  \__, |
-\                                     __/ |
-\                                    |___/
-\
-\            umlify is a tool that creates
-\          uml class diagrams from your code
-\
-\         <https://github.com/mikaa123/umlify>
+>                            _ _  __
+>                           | (_)/ _|
+>            _   _ _ __ ___ | |_| |_ _   _
+>           | | | | '_ ` _ \| | |  _| | | |
+>           | |_| | | | | | | | | | | |_| |
+>            \__,_|_| |_| |_|_|_|_|  \__, |
+>                                     __/ |
+>                                    |___/
+>
+>            umlify is a tool that creates
+>          uml class diagrams from your code
+>
+>         <https://github.com/mikaa123/umlify>
 
 
 Introduction

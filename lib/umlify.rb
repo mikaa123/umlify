@@ -1,0 +1,6 @@
+require 'umlify/version'
+require 'umlify/runner'
+require 'umlify/parser'
+require 'umlify/extension'
+require 'umlify/uml_class'
+require 'umlify/diagram'

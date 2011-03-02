@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'umlify'
+
+Umlify::Runner.new(ARGV).run

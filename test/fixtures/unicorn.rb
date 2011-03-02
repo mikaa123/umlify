@@ -1,0 +1,3 @@
+class Unicorn
+
+end

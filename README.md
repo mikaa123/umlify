@@ -1,17 +1,18 @@
->                            _ _  __
->                           | (_)/ _|
->            _   _ _ __ ___ | |_| |_ _   _
->           | | | | '_ ` _ \| | |  _| | | |
->           | |_| | | | | | | | | | | |_| |
->            \__,_|_| |_| |_|_|_|_|  \__, |
->                                     __/ |
->                                    |___/
->
->            umlify is a tool that creates
->          uml class diagrams from your code
->
->         <https://github.com/mikaa123/umlify>
+<div>
+                            _ _  __
+                           | (_)/ _|
+            _   _ _ __ ___ | |_| |_ _   _
+           | | | | '_ ` _ \| | |  _| | | |
+           | |_| | | | | | | | | | | |_| |
+            \__,_|_| |_| |_|_|_|_|  \__, |
+                                     __/ |
+                                    |___/
 
+            umlify is a tool that creates
+          uml class diagrams from your code
+
+         <a href="https://github.com/mikaa123/umlify>https://github.com/mikaa123/umlify</a>
+</div>
 
 Introduction
 ------------
@@ -28,9 +29,7 @@ How to use
 
 1. Go to your gem project directory
 
-2. type:
-
-    umlify 'lib/\*\*/\*'
+2. type: `umlify 'lib/\*\*/\*'`
 
 3. Open uml.html
 
@@ -46,6 +45,9 @@ How it works
 
 umlify parses your source codes using regular expressions to build an uml
 diagram using [yUML](http://yuml.me/)'s api.
+
+Note: Regexps parsing is really dirty. This point needs serious
+improvement
 
 On dynamic languages
 --------------------

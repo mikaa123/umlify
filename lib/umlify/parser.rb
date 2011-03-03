@@ -65,8 +65,8 @@ module Umlify
 
           # This adds an association to the current class, using the type_annotation
           # if type_annotation has been set
-          line.match(/attr_accessor :([\w]*)\b/) do |m|
-            current_class.associations[m[1]] = type_annotation
+          line.match(/(attr_accessor|attr_reader|attr_writer) :([\w]*)\b/) do |m|
+            current_class.associations[m[2]] = type_annotation
             type_annotation = nil
           end if type_annotation
 

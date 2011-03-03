@@ -56,6 +56,39 @@ class ParserTest < Test::Unit::TestCase
       assert_equal "FooBar", bar.associations['unicorn']
     end
 
+    should "parse attr_reader when preceeded by a # type: Type annotation" do
+      test = <<-END_FILE
+      class Bar
+
+        # type: FooBar
+        attr_reader :unicorn
+
+        def foo
+        end
+      end
+      END_FILE
+      bar = @p.parse_file(test)[0]
+      assert_instance_of Umlify::UmlClass, bar
+      assert_equal "FooBar", bar.associations['unicorn']
+    end
+
+
+    should "parse attr_writer when preceeded by a # type: Type annotation" do
+      test = <<-END_FILE
+      class Bar
+
+        # type: FooBar
+        attr_writer :unicorn
+
+        def foo
+        end
+      end
+      END_FILE
+      bar = @p.parse_file(test)[0]
+      assert_instance_of Umlify::UmlClass, bar
+      assert_equal "FooBar", bar.associations['unicorn']
+    end
+
     should "return an array of UmlClasses when the parsing is done" do
       p = Umlify::Parser.new Dir[File.dirname(__FILE__)+'/fixtures/*']
       parsed_classes = p.parse_sources!

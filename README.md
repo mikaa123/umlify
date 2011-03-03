@@ -1,4 +1,3 @@
-<div>
                             _ _  __
                            | (_)/ _|
             _   _ _ __ ___ | |_| |_ _   _
@@ -11,8 +10,7 @@
             umlify is a tool that creates
           uml class diagrams from your code
 
-         <a href="https://github.com/mikaa123/umlify>https://github.com/mikaa123/umlify</a>
-</div>
+         <https://github.com/mikaa123/umlify>
 
 Introduction
 ------------

@@ -26,7 +26,7 @@ How to use
 ----------
 
 1. Go to your gem project directory
-2. type: `umlify lib/\*\/*`
+2. type: `umlify lib/*/*`
 3. Open uml.html
 
 Example
@@ -92,7 +92,7 @@ Real project testing is way more efficient than on test cases. :)
 License
 -------
 
-Copyright (C) 2011 by Michael Sokol
+Copyright (C) 2011 Michael Sokol
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

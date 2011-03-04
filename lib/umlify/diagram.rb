@@ -17,17 +17,20 @@ module Umlify
     end
 
     # Adds the given statement to the @diagram array
+    # Statement can either be a String or an UmlClass
     def add statement
       # TODO: Add some sort of validation
 
       @statements << statement if statement.is_a? String
       if statement.is_a? UmlClass
 
-        if statement.associations.empty?
-          @statements << statement.to_s
-        else
-          @statements << statement.to_s
+        @statements << statement.to_s
 
+        if statement.parent
+          @statements << "[#{statement.parent}]^[#{statement.name}]"
+        end
+
+        unless statement.associations.empty?
           statement.associations.each do |name, type|
             @statements << "[#{statement.name}]-#{name}>[#{type}]"
           end

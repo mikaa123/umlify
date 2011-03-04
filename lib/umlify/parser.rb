@@ -43,8 +43,15 @@ module Umlify
       file.each do |line|
 
         # This parses the classes
-        line.match(/^\s*class ([\w]*)\b/) do |m|
+        line.match(/^\s*class ([\w]*)\b[\s]*$/) do |m|
           current_class = UmlClass.new m[1]
+          classes_in_file << current_class
+        end
+
+        # This parses the classes and its parent (class Foo < Bar)
+        line.match(/^\s*class ([\w]*) < ([\w]*)\b/) do |m|
+          current_class = UmlClass.new m[1]
+          current_class.parent = m[2]
           classes_in_file << current_class
         end
 

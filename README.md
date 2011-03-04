@@ -38,6 +38,13 @@ Here is umlify umlified:
 
 ![umlify's uml](http://img43.imageshack.us/img43/2756/umlify.png)
 
+Features
+--------
+
+* __new__ now supports inhertiance (v0.4.2)
+* supports associations (see "How to add associations to a diagram)
+* supports methods and instance variables
+
 How it works
 ------------
 
@@ -74,6 +81,15 @@ If you are interested by this project (I hope you are!), you can send me your co
 
 If you want to contribute, you can check the TODO, it's a good place to start. :)
 Just fork and send a pull request. I'd love to have some help.
+
+Not having the expected results?
+--------------------------------
+
+If you have found a bug, or if the results you obtained don't correspond
+to your code, you can raise an issue and link to your github project
+page.
+
+Real project testing is way more efficient than on test cases. :)
 
 License
 -------

@@ -27,6 +27,14 @@ class ParserTest < Test::Unit::TestCase
       assert_equal 'AClassName', @p.parse_file(test)[0].name
     end
 
+    should "parse class name of inherited classes" do
+      test = <<-END_FILE
+      class AClassName < SuperClass
+      end
+      END_FILE
+      assert_equal 'AClassName', @p.parse_file(test)[0].name
+    end
+
     should "parse @variables in classes" do
       test = <<-END_FILE
       class Bar
@@ -87,6 +95,24 @@ class ParserTest < Test::Unit::TestCase
       bar = @p.parse_file(test)[0]
       assert_instance_of Umlify::UmlClass, bar
       assert_equal "FooBar", bar.associations['unicorn']
+    end
+
+    should "parse inherited classes" do
+      test = <<-END_FILE
+        class Bar < Hash
+
+          def initialize
+          end
+
+          def save
+          end
+
+        end
+      end
+      END_FILE
+      bar = @p.parse_file(test)[0]
+      assert_instance_of Umlify::UmlClass, bar
+      assert_equal "Hash", bar.parent
     end
 
     should "return an array of UmlClasses when the parsing is done" do

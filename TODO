@@ -1,6 +1,5 @@
-Features
-========
-* Support inheritance
+Features to add
+===============
 * Support modules (yUML doesn't seem to support Packages yet)
 * Make classes in the html file clickable, so that it links to
   the corresponding RDoc file
@@ -10,3 +9,8 @@ Maintainance
 ============
 * Add a Diagram#valid_statement? method
 * Improve the parsing (use another system than regexp?)
+* Use ruby-yuml to generate the UML, when it implements class diagrams
+
+Grocery
+=======
+* Butter

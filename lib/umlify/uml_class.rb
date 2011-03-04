@@ -4,7 +4,7 @@ module Umlify
   # Represent a parsed uml class
   #
   class UmlClass
-    attr_accessor :name, :variables, :methods, :associations
+    attr_accessor :name, :variables, :methods, :associations, :parent
 
     def initialize name
       @name = name

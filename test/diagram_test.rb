@@ -50,6 +50,20 @@ class DiagramTest < Test::Unit::TestCase
       assert @diagram.statements.include? '[Unicorn]-chunky>[Bacon]'
     end
 
+    should "add UmlClass with parent to diagrams"  do
+      test_uml_class = Umlify::UmlClass.new 'Unicorn'
+      test_uml_class.variables << 'foo_variable'
+      test_uml_class.methods << 'bar_method'
+      test_uml_class.parent = "Foo"
+
+      @diagram.create do
+        add test_uml_class
+      end
+
+      assert @diagram.statements.include? '[Unicorn|foo_variable|bar_method]'
+      assert @diagram.statements.include? '[Foo]^[Unicorn]'
+    end
+
     should "export th yUML html"  do
       test_uml_class = Umlify::UmlClass.new 'Unicorn'
       test_uml_class.variables << 'foo_variable'

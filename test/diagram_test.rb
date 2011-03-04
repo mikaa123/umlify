@@ -64,7 +64,7 @@ class DiagramTest < Test::Unit::TestCase
       assert @diagram.statements.include? '[Foo]^[Unicorn]'
     end
 
-    should "export th yUML html"  do
+    should "get the yuml uri"  do
       test_uml_class = Umlify::UmlClass.new 'Unicorn'
       test_uml_class.variables << 'foo_variable'
       test_uml_class.methods << 'bar_method'
@@ -73,8 +73,8 @@ class DiagramTest < Test::Unit::TestCase
         add test_uml_class
       end
 
-      assert_equal '<img src="http://yuml.me/diagram/class/[Unicorn|foo_variable|bar_method]" />',
-       @diagram.export
+      assert_equal '/diagram/class/[Unicorn|foo_variable|bar_method]',
+       @diagram.get_uri
     end
 
   end

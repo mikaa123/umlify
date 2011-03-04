@@ -39,9 +39,9 @@ module Umlify
       end
     end
 
-    # Dumps the html of the diagram
-    def export
-      '<img src="http://yuml.me/diagram/class/'+@statements.join(", ")+'" />'
+    # Returns the yuml.me uri
+    def get_uri
+      uri = '/diagram/class/'+@statements.join(", ")
     end
   end
 end

@@ -26,6 +26,7 @@ module Umlify
       return nil if @source_files.empty?
 
       @source_files.each do |file|
+        puts "processing #{file}..."
         f = File.open file, 'r'
         (parse_file f).each {|c| @classes << c}
         f.close

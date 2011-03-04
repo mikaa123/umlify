@@ -1,4 +1,5 @@
 require 'optparse'
+require 'net/http'
 
 module Umlify
 
@@ -28,7 +29,7 @@ module Umlify
       if @args[0][0] == '-'
 
         OptionParser.new do |opts|
-          opts.banner = "Usage: umlify [option]"
+          opts.banner = "Usage: umlify [option] [source-files directory]"
           opts.on("-h", "--help",  "Shows this") do
             puts opts
           end
@@ -36,37 +37,33 @@ module Umlify
 
       else
         puts "umlifying"
-        if files = get_files_from_dir(@args[0])
-          puts "about to parse..."
-          @parser = Parser.new files
 
-          if classes = @parser.parse_sources!
-            @diagram = Diagram.new
+        @parser = Parser.new @args
 
-            @diagram.create do
-              classes.each {|c| add c}
-            end
+        if classes = @parser.parse_sources!
+          @diagram = Diagram.new
 
-            File.open("uml.html", 'w') do |file|
-              file << @diagram.export
-            end
-
-            puts "Saved in uml.html"
-          else
-            puts "No ruby files in the directory"
+          @diagram.create do
+            classes.each {|c| add c}
           end
 
+          puts "Downloading the image from yUML, it shouldn't be long."
+
+          image = Net::HTTP.start("yuml.me", 80) do |http|
+            http.get(URI.escape(@diagram.get_uri))
+          end
+
+          File.open('url.png', 'wb') do |file|
+            file << image.body
+          end if image
+
+          puts "Saved in uml.png"
         else
-          puts "empty directory"
+          puts "No ruby files in the directory"
         end
+
       end
 
-    end
-
-    private
-
-    def get_files_from_dir directory
-      Dir[directory] unless Dir[directory].empty?
     end
   end
 end

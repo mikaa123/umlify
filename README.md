@@ -26,9 +26,7 @@ How to use
 ----------
 
 1. Go to your gem project directory
-
-2. type: `umlify 'lib/\*\*/\*'`
-
+2. type: `umlify lib/\*\/*`
 3. Open uml.html
 
 Example

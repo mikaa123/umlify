@@ -53,7 +53,7 @@ module Umlify
             http.get(URI.escape(@diagram.get_uri))
           end
 
-          File.open('url.png', 'wb') do |file|
+          File.open('uml.png', 'wb') do |file|
             file << image.body
           end if image
 

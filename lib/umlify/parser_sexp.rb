@@ -62,6 +62,9 @@ module Umlify
       # means the class inherits from a parents class, :Const
       if class_s_exp[2] and class_s_exp[2][1] and class_s_exp[2][0] == :const
         uml_class.parent = class_s_exp[2][1].to_s
+      elsif class_s_exp[2] and class_s_exp[2][2] and class_s_exp[2][0] == :colon2
+        # If the parent class belongs to a module
+        uml_class.parent = class_s_exp[2][2].to_s
       end
 
       # Looks-up for instance methods

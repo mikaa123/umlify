@@ -114,6 +114,24 @@ class ParserSexpTest < Test::Unit::TestCase
       assert_equal "Hash", bar.parent
     end
 
+    should "parse inheritance from other modules" do
+      test = <<-END_FILE
+        class Bar < SomeModule::Hash
+
+          def initialize
+          end
+
+          def save
+          end
+
+        end
+      END_FILE
+      bar = @p.parse_file(test)[0]
+      assert_instance_of Umlify::UmlClass, bar
+      assert_equal "Hash", bar.parent
+    end
+
+
     should "parse file with multiple classes" do
       test = <<-END_FILE
         class Bar < Hash

@@ -4,13 +4,14 @@ Features to add
 * Make classes in the html file clickable, so that it links to
   the corresponding RDoc file
 * Add annotation - need to define how, and what -
+* "smart mode" where the types are inferred from variables name
 
 Maintainance
 ============
 * Add a Diagram#valid_statement? method
-* Improve the parsing (use another system than regexp?)
 * Use ruby-yuml to generate the UML, when it implements class diagrams
+* Generate doc (rocco or RDoc)
 
 Grocery
 =======
-* Butter
+* Ketchup

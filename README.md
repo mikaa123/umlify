@@ -39,7 +39,8 @@ Here is umlify umlified:
 Features
 --------
 
-* __new__ now supports inhertiance (v0.4.2)
+* __new__ Use RubyParser instead of regular expression as of v1.0.0
+* __new__ supports inhertiance (v0.4.2)
 * supports associations (see "How to add associations to a diagram)
 * supports methods and instance variables
 
@@ -65,11 +66,15 @@ How to add associations to a diagram
 ------------------------------------
 
 Because of the above point, there's no direct way to automatically draw associations between your
-classes. However, if you want an association to be shown on your diagram simply add an annotation
-on top of an `attr_accessor`, such as:
+classes. However, if you want an association to be shown on your diagram simply annotate your classes such as:
 
-    # type: Unicorn
-    attr_accessor :animal
+    # type of @weapon: Rainbow
+    class Unicorn
+
+      def initialize weapon
+        @weapon = weapon
+      end
+    end
 
 Contribute
 ----------

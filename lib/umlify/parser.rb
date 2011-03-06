@@ -1,9 +1,8 @@
 module Umlify
 
-  ##
+  # First version of the ruby parser, using regular expression.
   # Parser is responsible for parsing ruby source files and building an array
   # of uml classes
-  #
   class Parser
 
     # An array containing all the parsed classes

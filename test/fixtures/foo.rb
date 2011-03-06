@@ -6,6 +6,4 @@ end
 
 class Bar
 
-  # type: Foo
-  attr_accessor :foo
 end

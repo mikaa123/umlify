@@ -1,44 +1,30 @@
-require 'optparse'
 require 'net/http'
 
 module Umlify
 
-  ###
-  # This class is instanciated and run by the bin file
+  # Class to run to execute umlify. It parses the ruby sources provided
+  # and generates and save a uml diagram using yUML API.
+  # 
+  #   type of @diagram: Diagram
+  #   type of @args: 0..* String
+  #   type of @parser: ParserSexp
   #
   class Runner
 
-    # Contains the options from the command line
-    attr_reader :args
-
-    # type: Parser
-    attr_accessor :parser
-
-    # type: Diagram
-    attr_accessor :diagram
-
-    # Takes as input an array with the command line options
+    # Takes as input an array with file names
     def initialize args
       @args = args
     end
 
     # Runs the application
     def run
-      @args.push "-h" if @args.empty?
 
-      if @args[0][0] == '-'
-
-        OptionParser.new do |opts|
-          opts.banner = "Usage: umlify [option] [source-files directory]"
-          opts.on("-h", "--help",  "Shows this") do
-            puts opts
-          end
-        end.parse! @args
-
+      if @args.empty?
+        puts "Usage: umlify [source directory]"
       else
         puts "umlifying"
 
-        @parser = Parser.new @args
+        @parser = ParserSexp.new @args
 
         if classes = @parser.parse_sources!
           @diagram = Diagram.new
@@ -49,21 +35,31 @@ module Umlify
 
           puts "Downloading the image from yUML, it shouldn't be long."
 
-          image = Net::HTTP.start("yuml.me", 80) do |http|
-            http.get(URI.escape(@diagram.get_uri))
-          end
+          image = download_image
+          save_to_file image
 
-          File.open('uml.png', 'wb') do |file|
-            file << image.body
-          end if image
-
+          puts @diagram.get_uri
           puts "Saved in uml.png"
         else
           puts "No ruby files in the directory"
         end
-
       end
 
     end
+
+    # Downloads the image of the uml diagram from yUML
+    def download_image
+      Net::HTTP.start("yuml.me", 80) do |http|
+        http.get(URI.escape(@diagram.get_uri))
+      end
+    end
+
+    #Saves the diagram to file
+    def save_to_file image
+      File.open('uml.png', 'wb') do |file|
+        file << image.body
+      end if image
+    end
+
   end
 end

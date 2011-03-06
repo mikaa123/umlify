@@ -1,6 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ruby_parser (2.0.6)
+      sexp_processor (~> 3.0)
+    sexp_processor (3.0.5)
     shoulda (2.11.3)
     watchr (0.7)
 
@@ -8,5 +11,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ruby_parser
   shoulda
   watchr

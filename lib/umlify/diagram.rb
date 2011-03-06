@@ -1,11 +1,9 @@
 module Umlify
 
-  ##
   # Creates and store a yUML api string for generating diagram
-  #
+  # type of @statements: 1..* String
   class Diagram
 
-    # Array containing yUML DSL statements
     attr_accessor :statements
 
     def initialize
@@ -32,7 +30,12 @@ module Umlify
 
         unless statement.associations.empty?
           statement.associations.each do |name, type|
-            @statements << "[#{statement.name}]-#{name}>[#{type}]"
+            unless name =~ /-/
+              cardinality = if statement.associations[name+'-n']
+                              ' '+statement.associations[name+'-n']
+                            end
+              @statements << "[#{statement.name}]-#{name}#{cardinality}>[#{type}]"
+            end
           end
         end
 

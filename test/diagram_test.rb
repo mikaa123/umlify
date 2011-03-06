@@ -50,6 +50,18 @@ class DiagramTest < Test::Unit::TestCase
       assert @diagram.statements.include? '[Unicorn]-chunky>[Bacon]'
     end
 
+    should "process cardinality for associations"  do
+      test_uml_class = Umlify::UmlClass.new 'Unicorn'
+      test_uml_class.associations['foo'] = 'Bar'
+      test_uml_class.associations['foo-n'] = '1..*'
+
+      @diagram.create do
+        add test_uml_class
+      end
+
+      assert @diagram.statements.include? '[Unicorn]-foo 1..*>[Bar]'
+    end
+
     should "add UmlClass with parent to diagrams"  do
       test_uml_class = Umlify::UmlClass.new 'Unicorn'
       test_uml_class.variables << 'foo_variable'

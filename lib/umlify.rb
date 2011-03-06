@@ -33,6 +33,7 @@
 require 'umlify/version'
 require 'umlify/runner'
 require 'umlify/parser'
+require 'umlify/parser_sexp'
 require 'umlify/extension'
 require 'umlify/uml_class'
 require 'umlify/diagram'

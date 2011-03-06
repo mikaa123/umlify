@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
     lib/umlify/version.rb
     lib/umlify/runner.rb
     lib/umlify/parser.rb
+    lib/umlify/parser_sexp.rb
     lib/umlify/extension.rb
     lib/umlify/uml_class.rb
     lib/umlify/diagram.rb
@@ -24,6 +25,7 @@ Gem::Specification.new do |spec|
   ]
   spec.test_files = %w[
     test/parser_test.rb
+    test/parser_sexp_test.rb
     test/diagram_test.rb
   ]
   spec.executables = ['umlify']

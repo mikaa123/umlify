@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>runner.rb</title>
+  <link rel="stylesheet" href="http://github.com/jashkenas/docco/raw/0.3.0/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="diagram.html">diagram.rb</a>
+          <a class="source" href="extension.html">extension.rb</a>
+          <a class="source" href="parser.html">parser.rb</a>
+          <a class="source" href="parser_sexp.html">parser_sexp.rb</a>
+          <a class="source" href="runner.html">runner.rb</a>
+          <a class="source" href="uml_class.html">uml_class.rb</a>
+          <a class="source" href="version.html">version.rb</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>runner.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="nb">require</span> <span class="s1">&#39;net/http&#39;</span>
+
+<span class="k">module</span> <span class="nn">Umlify</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Class to run to execute umlify. It parses the ruby sources provided
+and generates and save a uml diagram using yUML API.</p>
+
+<ul>
+<li>type of @diagram: Diagram</li>
+<li>type of @args: 0..* String</li>
+<li>type of @parser: ParserSexp</li>
+</ul>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="k">class</span> <span class="nc">Runner</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Takes as input an array with file names</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">initialize</span> <span class="n">args</span>
+      <span class="vi">@args</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>Runs the application</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">run</span>
+
+      <span class="k">if</span> <span class="vi">@args</span><span class="o">.</span><span class="n">empty?</span>
+        <span class="nb">puts</span> <span class="s2">&quot;Usage: umlify [source directory]&quot;</span>
+      <span class="k">else</span>
+        <span class="nb">puts</span> <span class="s2">&quot;umlifying&quot;</span>
+
+        <span class="vi">@parser</span> <span class="o">=</span> <span class="no">ParserSexp</span><span class="o">.</span><span class="n">new</span> <span class="vi">@args</span>
+
+        <span class="k">if</span> <span class="n">classes</span> <span class="o">=</span> <span class="vi">@parser</span><span class="o">.</span><span class="n">parse_sources!</span>
+          <span class="vi">@diagram</span> <span class="o">=</span> <span class="no">Diagram</span><span class="o">.</span><span class="n">new</span>
+
+          <span class="vi">@diagram</span><span class="o">.</span><span class="n">create</span> <span class="k">do</span>
+            <span class="n">classes</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">add</span> <span class="n">c</span><span class="p">}</span>
+          <span class="k">end</span>
+
+          <span class="nb">puts</span> <span class="s2">&quot;Downloading the image from yUML, it shouldn&#39;t be long.&quot;</span>
+
+          <span class="n">image</span> <span class="o">=</span> <span class="n">download_image</span>
+          <span class="n">save_to_file</span> <span class="n">image</span>
+
+          <span class="nb">puts</span> <span class="vi">@diagram</span><span class="o">.</span><span class="n">get_uri</span>
+          <span class="nb">puts</span> <span class="s2">&quot;Saved in uml.png&quot;</span>
+        <span class="k">else</span>
+          <span class="nb">puts</span> <span class="s2">&quot;No ruby files in the directory&quot;</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Downloads the image of the uml diagram from yUML</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">download_image</span>
+      <span class="no">Net</span><span class="o">::</span><span class="no">HTTP</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s2">&quot;yuml.me&quot;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">http</span><span class="o">|</span>
+        <span class="n">http</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">URI</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="vi">@diagram</span><span class="o">.</span><span class="n">get_uri</span><span class="p">))</span>
+      <span class="k">end</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>Saves the diagram to file</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">save_to_file</span> <span class="n">image</span>
+      <span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;uml.png&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+        <span class="n">file</span> <span class="o">&lt;&lt;</span> <span class="n">image</span><span class="o">.</span><span class="n">body</span>
+      <span class="k">end</span> <span class="k">if</span> <span class="n">image</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

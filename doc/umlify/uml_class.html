@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>uml_class.rb</title>
+  <link rel="stylesheet" href="http://github.com/jashkenas/docco/raw/0.3.0/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="diagram.html">diagram.rb</a>
+          <a class="source" href="extension.html">extension.rb</a>
+          <a class="source" href="parser.html">parser.rb</a>
+          <a class="source" href="parser_sexp.html">parser_sexp.rb</a>
+          <a class="source" href="runner.html">runner.rb</a>
+          <a class="source" href="uml_class.html">uml_class.rb</a>
+          <a class="source" href="version.html">version.rb</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>uml_class.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Umlify</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Represents a parsed uml class</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="k">class</span> <span class="nc">UmlClass</span>
+    <span class="kp">attr_accessor</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:variables</span><span class="p">,</span> <span class="ss">:methods</span><span class="p">,</span> <span class="ss">:associations</span><span class="p">,</span> <span class="ss">:parent</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span> <span class="nb">name</span>
+      <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
+      <span class="vi">@variables</span> <span class="o">=</span> <span class="o">[]</span>
+      <span class="vi">@methods</span> <span class="o">=</span> <span class="o">[]</span>
+      <span class="vi">@associations</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">to_s</span>
+      <span class="s1">&#39;[&#39;</span><span class="o">+</span><span class="vi">@name</span><span class="o">+</span><span class="s1">&#39;|&#39;</span><span class="o">+</span>
+      <span class="vi">@variables</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="n">var</span><span class="o">|</span> <span class="n">var</span><span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;|&#39;</span><span class="o">+</span>
+      <span class="vi">@methods</span><span class="o">.</span><span class="n">collect</span><span class="p">{</span><span class="o">|</span><span class="n">met</span><span class="o">|</span> <span class="n">met</span><span class="p">}</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;]&#39;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

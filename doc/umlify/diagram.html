@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <title>diagram.rb</title>
+  <link rel="stylesheet" href="http://github.com/jashkenas/docco/raw/0.3.0/resources/docco.css">
+</head>
+<body>
+<div id='container'>
+  <div id="background"></div>
+  <div id="jump_to">
+    Jump To &hellip;
+    <div id="jump_wrapper">
+      <div id="jump_page">
+          <a class="source" href="diagram.html">diagram.rb</a>
+          <a class="source" href="extension.html">extension.rb</a>
+          <a class="source" href="parser.html">parser.rb</a>
+          <a class="source" href="parser_sexp.html">parser_sexp.rb</a>
+          <a class="source" href="runner.html">runner.rb</a>
+          <a class="source" href="uml_class.html">uml_class.rb</a>
+          <a class="source" href="version.html">version.rb</a>
+      </div>
+    </div>
+  </div>
+  <table cellspacing=0 cellpadding=0>
+  <thead>
+    <tr>
+      <th class=docs><h1>diagram.rb</h1></th>
+      <th class=code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id='section-1'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-1">&#182;</a>
+        </div>
+        
+      </td>
+      <td class=code>
+        <div class='highlight'><pre><span class="k">module</span> <span class="nn">Umlify</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-2'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-2">&#182;</a>
+        </div>
+        <p>Creates and store a yUML api string for generating diagram
+* type of @statements: 1..* String</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="k">class</span> <span class="nc">Diagram</span>
+
+    <span class="kp">attr_accessor</span> <span class="ss">:statements</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span>
+      <span class="vi">@statements</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">create</span> <span class="o">&amp;</span><span class="n">blk</span>
+      <span class="nb">instance_eval</span> <span class="o">&amp;</span><span class="n">blk</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-3'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-3">&#182;</a>
+        </div>
+        <p>Adds the given statement to the @diagram array
+Statement can either be a String or an UmlClass</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">add</span> <span class="n">statement</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-4'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>TODO: Add some sort of validation</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="vi">@statements</span> <span class="o">&lt;&lt;</span> <span class="n">statement</span> <span class="k">if</span> <span class="n">statement</span><span class="o">.</span><span class="n">is_a?</span> <span class="nb">String</span>
+      <span class="k">if</span> <span class="n">statement</span><span class="o">.</span><span class="n">is_a?</span> <span class="no">UmlClass</span>
+
+        <span class="vi">@statements</span> <span class="o">&lt;&lt;</span> <span class="n">statement</span><span class="o">.</span><span class="n">to_s</span>
+
+        <span class="k">if</span> <span class="n">statement</span><span class="o">.</span><span class="n">parent</span>
+          <span class="vi">@statements</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;[</span><span class="si">#{</span><span class="n">statement</span><span class="o">.</span><span class="n">parent</span><span class="si">}</span><span class="s2">]^[</span><span class="si">#{</span><span class="n">statement</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="k">end</span>
+
+        <span class="k">unless</span> <span class="n">statement</span><span class="o">.</span><span class="n">associations</span><span class="o">.</span><span class="n">empty?</span>
+          <span class="n">statement</span><span class="o">.</span><span class="n">associations</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">name</span><span class="p">,</span> <span class="nb">type</span><span class="o">|</span>
+            <span class="k">unless</span> <span class="nb">name</span> <span class="o">=~</span> <span class="sr">/-/</span>
+              <span class="n">cardinality</span> <span class="o">=</span> <span class="k">if</span> <span class="n">statement</span><span class="o">.</span><span class="n">associations</span><span class="o">[</span><span class="nb">name</span><span class="o">+</span><span class="s1">&#39;-n&#39;</span><span class="o">]</span>
+                              <span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">statement</span><span class="o">.</span><span class="n">associations</span><span class="o">[</span><span class="nb">name</span><span class="o">+</span><span class="s1">&#39;-n&#39;</span><span class="o">]</span>
+                            <span class="k">end</span>
+              <span class="vi">@statements</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;[</span><span class="si">#{</span><span class="n">statement</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">]-</span><span class="si">#{</span><span class="nb">name</span><span class="si">}#{</span><span class="n">cardinality</span><span class="si">}</span><span class="s2">&gt;[</span><span class="si">#{</span><span class="nb">type</span><span class="si">}</span><span class="s2">]&quot;</span>
+            <span class="k">end</span>
+          <span class="k">end</span>
+        <span class="k">end</span>
+
+      <span class="k">end</span>
+    <span class="k">end</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Returns the yuml.me uri</p>
+
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">def</span> <span class="nf">get_uri</span>
+      <span class="n">uri</span> <span class="o">=</span> <span class="s1">&#39;/diagram/class/&#39;</span><span class="o">+</span><span class="vi">@statements</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></pre></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>

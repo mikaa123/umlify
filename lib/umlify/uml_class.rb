@@ -11,6 +11,12 @@ module Umlify
       @associations = {}
     end
 
+    # Deletes variables from the @variables array if they appear
+    # in an association
+    def chomp!
+      @variables = @variables - @associations.keys unless @associations.nil?
+    end
+
     def to_s
       '['+@name+'|'+
       @variables.collect{|var| var}.join(";")+'|'+

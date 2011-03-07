@@ -28,7 +28,8 @@ module Umlify
         (parse_file File.read(file)).each {|c| @classes << c}
       end
 
-      @classes
+      # Removes duplicates between variables and associations in the class
+      @classes.each {|c| c.chomp!}
     end
 
     # Parse the given string, and return the parsed classes

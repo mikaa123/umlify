@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 # Extends the String to add a String#each method so that
 # strings can be read just like files, line-by-line.
 
@@ -10,4 +12,5 @@ class String
     end
 
   end
+
 end

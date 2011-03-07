@@ -1,9 +1,9 @@
 require 'shoulda'
 require 'umlify'
 
-class DiagramTest < Test::Unit::TestCase
+class UmlClassTest < Test::Unit::TestCase
 
-  context "Diagram" do
+  context "UmlClass" do
 
     setup do
       @class = Umlify::UmlClass.new 'Farm'

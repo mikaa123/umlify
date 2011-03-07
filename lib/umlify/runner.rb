@@ -4,10 +4,10 @@ module Umlify
 
   # Class to run to execute umlify. It parses the ruby sources provided
   # and generates and save a uml diagram using yUML API.
-  # 
-  #   type of @diagram: Diagram
-  #   type of @args: 0..* String
-  #   type of @parser: ParserSexp
+  #
+  #  * type of @diagram: Diagram
+  #  * type of @args: 0..* String
+  #  * type of @parser: ParserSexp
   #
   class Runner
 

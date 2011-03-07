@@ -1,6 +1,6 @@
 module Umlify
 
-  # Represent a parsed uml class
+  # Represents a parsed uml class
   class UmlClass
     attr_accessor :name, :variables, :methods, :associations, :parent
 

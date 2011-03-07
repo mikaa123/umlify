@@ -1,7 +1,7 @@
 module Umlify
 
   # Creates and store a yUML api string for generating diagram
-  # type of @statements: 1..* String
+  # * type of @statements: 1..* String
   class Diagram
 
     attr_accessor :statements

@@ -4,7 +4,7 @@ module Umlify
 
   # Parses files using S-Expressions given by the RubyParser gem
   #
-  #   type of @classes: 0..* UmlClass
+  #  * type of @classes: 0..* UmlClass
   #
   class ParserSexp
 
@@ -60,9 +60,9 @@ module Umlify
 
       # Searching for a s(:const, :Const) right after the class name, which
       # means the class inherits from a parents class, :Const
-      if class_s_exp[2] and class_s_exp[2][1] and class_s_exp[2][0] == :const
+      if class_s_exp[2] and class_s_exp[2][0] == :const
         uml_class.parent = class_s_exp[2][1].to_s
-      elsif class_s_exp[2] and class_s_exp[2][2] and class_s_exp[2][0] == :colon2
+      elsif class_s_exp[2] and class_s_exp[2][0] == :colon2
         # If the parent class belongs to a module
         uml_class.parent = class_s_exp[2][2].to_s
       end

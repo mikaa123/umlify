@@ -23,12 +23,16 @@ Gem::Specification.new do |spec|
     test/parser_test.rb
     test/diagram_test.rb
     test/uml_class_test.rb
+    test/runner_test.rb
+    test/string_test.rb
   ]
   spec.test_files = %w[
     test/parser_test.rb
     test/uml_class_test.rb
     test/parser_sexp_test.rb
     test/diagram_test.rb
+    test/runner_test.rb
+    test/string_test.rb
   ]
   spec.executables = ['umlify']
 end

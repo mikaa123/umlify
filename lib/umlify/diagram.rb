@@ -12,6 +12,7 @@ module Umlify
 
     def create &blk
       instance_eval &blk
+      self
     end
 
     # Adds the given statement to the @diagram array
@@ -24,8 +25,10 @@ module Umlify
 
         @statements << statement.to_s
 
-        if statement.parent
-          @statements << "[#{statement.parent}]^[#{statement.name}]"
+        if statement.children
+          statement.children.each do |child|
+            @statements << "[#{statement.name}]^[#{child.name}]"
+          end
         end
 
         unless statement.associations.empty?
@@ -37,6 +40,31 @@ module Umlify
               @statements << "[#{statement.name}]-#{name}#{cardinality}>[#{type}]"
             end
           end
+        end
+
+      end
+    end
+
+    # Sorts the statements array so that
+    # 1. Class definitions
+    # 2. Inheritance
+    # 3. Associations
+    # Otherwise, strange behavior can happen in the downloadd graph
+    def compute!
+      class_def = /\[[\w;?|!]*\]/
+      inheritance = /\[(.*?)\]\^\[(.*?)\]/
+      association = /\[.*\]-.*>\[.*\]/
+
+      @statements.sort! do |x, y|
+
+        if x =~ class_def and y =~ inheritance
+          -1
+        elsif x =~ class_def and y =~ association
+          -1
+        elsif x =~ inheritance and y =~ association
+          -1
+        else
+          1
         end
 
       end

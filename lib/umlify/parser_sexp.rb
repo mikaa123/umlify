@@ -29,7 +29,7 @@ module Umlify
       end
 
       # Removes duplicates between variables and associations in the class
-      @classes.each {|c| c.chomp!}
+      @classes.each {|c| c.chomp! @classes}
     end
 
     # Parse the given string, and return the parsed classes

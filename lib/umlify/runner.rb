@@ -1,23 +1,23 @@
 require 'net/http'
+require 'optparse'
 
 module Umlify
 
   # Class to run to execute umlify. It parses the ruby sources provided
   # and generates and save a uml diagram using yUML API.
-  #
-  #  * type of @diagram: Diagram
-  #  * type of @args: 0..* String
-  #  * type of @parser: ParserSexp
-  #
   class Runner
+
+    attr_reader :smart_mode
 
     # Takes as input an array with file names
     def initialize args
       @args = args
+      @smart_mode = false
     end
 
     # Runs the application
     def run
+      parse_options
 
       if @args.empty?
         puts "Usage: umlify [source directory]"
@@ -29,9 +29,13 @@ module Umlify
         if classes = @parser.parse_sources!
           @diagram = Diagram.new
 
+          if @smart_mode
+            classes.each {|c| c.infer_types! classes}
+          end
+
           @diagram.create do
             classes.each {|c| add c}
-          end
+          end.compute!
 
           puts "Downloading the image from yUML, it shouldn't be long."
 
@@ -45,6 +49,12 @@ module Umlify
         end
       end
 
+    end
+
+    def parse_options
+      OptionParser.new do |opts|
+        opts.on("-s", "--smart") { @smart_mode = true }
+      end.parse! @args
     end
 
     # Downloads the image of the uml diagram from yUML

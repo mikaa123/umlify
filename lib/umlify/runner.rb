@@ -42,7 +42,7 @@ module Umlify
           image = download_image
           save_to_file image
 
-          puts @diagram.get_uri
+          puts 'http://yuml.me'+@diagram.get_uri
           puts "Saved in uml.png"
         else
           puts "No ruby files in the directory"

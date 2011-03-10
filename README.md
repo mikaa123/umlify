@@ -29,6 +29,9 @@ How to use
 2. type: `umlify lib/*/*`
 3. Open uml.html
 
+If you want umlify to try to guess the types of the associations, use
+`umlify -s lib/*/*` at step 2.
+
 Example
 -------
 
@@ -39,6 +42,7 @@ Here is umlify umlified:
 Features
 --------
 
+* Tries to guess the types of the instance variables (smart mode)
 * __new__ Use RubyParser instead of regular expression as of v1.0.0
 * __new__ supports inhertiance (v0.4.2)
 * supports associations (see "How to add associations to a diagram)
@@ -75,6 +79,19 @@ classes. However, if you want an association to be shown on your diagram simply 
         @weapon = weapon
       end
     end
+
+Smart mode
+----------
+
+If you use umlify with the `-s` or `--smart` option, it'll try to guess
+the types of the associations based on the name of the instance
+variables.
+
+If you class variable is @duck, then it will try to create an
+association with the "Duck" class, if it exists.
+
+If your variable is @ducks, it will try to create an association with a
+cardinality of '*' with a class called "Duck", if such a class exists.
 
 Contribute
 ----------

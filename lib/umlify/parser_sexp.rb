@@ -51,7 +51,12 @@ module Umlify
 
     # Creates a UmlClass from a class s-expression
     def parse_class class_s_exp
-      uml_class = UmlClass.new class_s_exp[1].to_s
+
+      if class_s_exp[1].class == Symbol
+        uml_class = UmlClass.new class_s_exp[1].to_s
+      else
+        uml_class = UmlClass.new class_s_exp[1][2].to_s
+      end
 
       # Let's start by building the associations of the class
       each_association_for class_s_exp do |variable, type, cardinality|

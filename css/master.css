@@ -69,6 +69,7 @@ body {
 	clear: both;
 	background-color: #000;
 	padding-left: 190px;
+  width: 100%;
 }
 
 #diagram {

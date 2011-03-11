@@ -1,0 +1,85 @@
+@font-face {
+  font-family: Dekar;
+  src: url(Dekar.otf) format("opentype");
+}
+
+h1 {
+  font-family: Dekar-Light;
+  font-size: 172.39px;
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+#menu a {
+	text-decoration: none;
+	font: normal normal 25px Dekar;
+	color: #81807f;
+}
+
+#footer {
+	font-size: 12px;
+	text-align: center;
+	color: #5c5c5c;
+}
+
+#footer a {
+	color: #cc1935;
+}
+
+#menu a:hover {
+	color: #a2000b;
+}
+
+p {
+	margin-left: 200px;
+	width: 800px;
+	font: 25px/30px Dekar, "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f7f3ee;
+}
+
+#content {
+	margin-left: 200px;
+	margin-top: 100px;
+	width: 800px;
+}
+
+#menu {
+	text-align: right;
+}
+
+#menu a img {
+	float:  right;
+}
+
+#content img {
+	float: left;
+}
+
+#content p {
+	width: 410px;
+	margin-right: 0;
+	margin-left: 0;
+	margin-bottom: 15px;
+}
+
+#code {
+	clear: both;
+	background-color: #000;
+	padding-left: 190px;
+}
+
+#diagram {
+	margin-left: 200px;
+	width: 800px;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+body {
+	padding: 0;	
+	margin: 0;
+}

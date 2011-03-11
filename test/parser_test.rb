@@ -118,7 +118,6 @@ class ParserTest < Test::Unit::TestCase
     should "return an array of UmlClasses when the parsing is done" do
       p = Umlify::Parser.new Dir[File.dirname(__FILE__)+'/fixtures/*']
       parsed_classes = p.parse_sources!
-      puts "here : #{parsed_classes}"
       assert_equal 3, parsed_classes.count
     end
 

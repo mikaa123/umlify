@@ -14,6 +14,14 @@ class RunnerTest < Test::Unit::TestCase
       assert r.smart_mode
     end
 
+    should "print the api url when passed -h or --html option"  do
+      r = Umlify::Runner.new(["-h"])
+      r.run
+      assert r.html_mode
+      r = Umlify::Runner.new(["--html"])
+      r.run
+      assert r.html_mode
+    end
   end
 end
 

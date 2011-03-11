@@ -7,12 +7,13 @@ module Umlify
   # and generates and save a uml diagram using yUML API.
   class Runner
 
-    attr_reader :smart_mode
+    attr_reader :smart_mode, :html_mode
 
     # Takes as input an array with file names
     def initialize args
       @args = args
       @smart_mode = false
+      @html_mode = false
     end
 
     # Runs the application
@@ -54,6 +55,7 @@ module Umlify
     def parse_options
       OptionParser.new do |opts|
         opts.on("-s", "--smart") { @smart_mode = true }
+        opts.on("-h", "--html") { @html_mode = true }
       end.parse! @args
     end
 

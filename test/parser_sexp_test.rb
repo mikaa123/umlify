@@ -131,6 +131,22 @@ class ParserSexpTest < Test::Unit::TestCase
       assert_equal "Hash", bar.parent
     end
 
+    should "parse classes from a module" do
+      test = <<-END_FILE
+        class SomeModule::Bar < Hash
+
+          def initialize
+          end
+
+          def save
+          end
+
+        end
+      END_FILE
+      bar = @p.parse_file(test)[0]
+      assert_instance_of Umlify::UmlClass, bar
+      assert_equal "Bar", bar.name
+    end
 
     should "parse file with multiple classes" do
       test = <<-END_FILE
@@ -148,7 +164,6 @@ class ParserSexpTest < Test::Unit::TestCase
     should "return an array of UmlClasses when the parsing is done" do
       p = Umlify::ParserSexp.new Dir[File.dirname(__FILE__)+'/fixtures/*']
       parsed_classes = p.parse_sources!
-      puts "here : #{parsed_classes}"
       assert_equal 3, parsed_classes.count
     end
 

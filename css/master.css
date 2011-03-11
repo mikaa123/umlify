@@ -1,10 +1,5 @@
-@font-face {
-  font-family: Dekar;
-  src: url(Dekar.otf) format("opentype");
-}
-
 h1 {
-  font-family: Dekar-Light;
+  font-family: "Raleway";
   font-size: 172.39px;
   margin-top: 0;
   margin-bottom: 0
@@ -12,7 +7,7 @@ h1 {
 
 #menu a {
 	text-decoration: none;
-	font: normal normal 25px Dekar;
+	font: normal normal 25px "Raleway";
 	color: #81807f;
 }
 
@@ -33,7 +28,7 @@ h1 {
 p {
 	margin-left: 200px;
 	width: 800px;
-	font: 25px/30px Dekar, "Lucida Grande", Lucida, Verdana, sans-serif;
+	font: 25px/30px "Raleway", "Lucida Grande", Lucida, Verdana, sans-serif;
 }
 
 body {
@@ -68,8 +63,11 @@ body {
 #code {
 	clear: both;
 	background-color: #000;
-	padding-left: 190px;
   width: 100%;
+}
+
+#code img {
+  margin-left: 190px;
 }
 
 #diagram {

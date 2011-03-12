@@ -128,7 +128,7 @@ class ParserSexpTest < Test::Unit::TestCase
       END_FILE
       bar = @p.parse_file(test)[0]
       assert_instance_of Umlify::UmlClass, bar
-      assert_equal "Hash", bar.parent
+      assert_equal "SomeModule::Hash", bar.parent
     end
 
     should "parse classes from a module" do
@@ -145,7 +145,7 @@ class ParserSexpTest < Test::Unit::TestCase
       END_FILE
       bar = @p.parse_file(test)[0]
       assert_instance_of Umlify::UmlClass, bar
-      assert_equal "Bar", bar.name
+      assert_equal "SomeModule::Bar", bar.name
     end
 
     should "parse file with multiple classes" do

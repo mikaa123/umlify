@@ -15,19 +15,16 @@ Gem::Specification.new do |spec|
     lib/umlify.rb
     lib/umlify/version.rb
     lib/umlify/runner.rb
-    lib/umlify/parser.rb
     lib/umlify/parser_sexp.rb
     lib/umlify/extension.rb
     lib/umlify/uml_class.rb
     lib/umlify/diagram.rb
-    test/parser_test.rb
     test/diagram_test.rb
     test/uml_class_test.rb
     test/runner_test.rb
     test/string_test.rb
   ]
   spec.test_files = %w[
-    test/parser_test.rb
     test/uml_class_test.rb
     test/parser_sexp_test.rb
     test/diagram_test.rb

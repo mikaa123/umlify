@@ -52,10 +52,12 @@ module Umlify
     # Creates a UmlClass from a class s-expression
     def parse_class class_s_exp
 
+      # Checks if the class is in a module
       if class_s_exp[1].class == Symbol
         uml_class = UmlClass.new class_s_exp[1].to_s
       else
-        uml_class = UmlClass.new class_s_exp[1][2].to_s
+        classname = class_s_exp[1][1][1].to_s+'::'+class_s_exp[1][2].to_s
+        uml_class = UmlClass.new classname
       end
 
       # Let's start by building the associations of the class
@@ -70,7 +72,8 @@ module Umlify
         uml_class.parent = class_s_exp[2][1].to_s
       elsif class_s_exp[2] and class_s_exp[2][0] == :colon2
         # If the parent class belongs to a module
-        uml_class.parent = class_s_exp[2][2].to_s
+        classname = class_s_exp[2][1][1].to_s+'::'+class_s_exp[2][2].to_s
+        uml_class.parent = classname
       end
 
       # Looks-up for instance methods

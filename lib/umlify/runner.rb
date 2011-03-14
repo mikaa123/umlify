@@ -25,9 +25,9 @@ module Umlify
       else
         puts "umlifying"
 
-        @parser = ParserSexp.new @args
+        @parser_sexp = ParserSexp.new @args
 
-        if classes = @parser.parse_sources!
+        if classes = @parser_sexp.parse_sources!
           @diagram = Diagram.new
 
           if @smart_mode

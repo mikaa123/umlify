@@ -34,8 +34,18 @@
 
 require 'umlify/version'
 require 'umlify/runner'
-require 'umlify/parser'
 require 'umlify/parser_sexp'
 require 'umlify/extension'
 require 'umlify/uml_class'
 require 'umlify/diagram'
+
+module Umlify
+  class << self
+
+    # Executes umlify with the given set of options
+    def execute args
+      Umlify::Runner.new(args).run
+    end
+
+  end
+end

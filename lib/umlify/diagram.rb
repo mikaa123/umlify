@@ -49,9 +49,9 @@ module Umlify
     # 1. Class definitions
     # 2. Inheritance
     # 3. Associations
-    # Otherwise, strange behavior can happen in the downloadd graph
+    # Otherwise, strange behavior can happen in the downloaded graph
     def compute!
-      class_def = /\[[\w;?|=!]*\]/
+      class_def = /^\[[\w;\?|=!]*?\]$/
       inheritance = /\[(.*?)\]\^\[(.*?)\]/
       association = /\[.*\]-.*>\[.*\]/
 
@@ -63,6 +63,12 @@ module Umlify
           -1
         elsif x =~ inheritance and y =~ association
           -1
+        elsif x =~ class_def and y =~ class_def
+          0
+        elsif x =~ inheritance and y =~ inheritance
+          0
+        elsif x =~ association and y =~ association
+          0
         else
           1
         end
@@ -72,6 +78,7 @@ module Umlify
 
     # Returns the yuml.me uri
     def get_uri
+      compute!
       uri = '/diagram/class/'+@statements.join(", ")
     end
   end

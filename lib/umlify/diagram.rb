@@ -51,7 +51,7 @@ module Umlify
     # 3. Associations
     # Otherwise, strange behavior can happen in the downloadd graph
     def compute!
-      class_def = /\[[\w;?|!]*\]/
+      class_def = /\[[\w;?|=!]*\]/
       inheritance = /\[(.*?)\]\^\[(.*?)\]/
       association = /\[.*\]-.*>\[.*\]/
 

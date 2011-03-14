@@ -92,7 +92,7 @@ class DiagramTest < Test::Unit::TestCase
     should "sort the statements so that the class declarations are first, then
         the inheritance, then the associations" do
 
-      @diagram.statements = ['[Foo]^[Unicorn]',  '[Unicorn]-foo 1..*>[Bar]', '[Unicorn|foo_variable|bar_method]']
+      @diagram.statements = ['[Foo]^[Unicorn]', '[Unicorn]-foo 1..*>[Bar]', '[Unicorn|foo_variable|bar_method]']
       @diagram.compute!
       assert_equal ['[Unicorn|foo_variable|bar_method]', '[Foo]^[Unicorn]', '[Unicorn]-foo 1..*>[Bar]'], @diagram.statements
     end

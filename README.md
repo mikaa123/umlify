@@ -37,7 +37,7 @@ Example
 
 Here is umlify umlified:
 
-![umlify's uml](http://img30.imageshack.us/img30/4446/umlk.png)
+![umlify's uml](http://img806.imageshack.us/img806/4123/uml.png)
 
 Features
 --------

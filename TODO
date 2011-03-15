@@ -1,17 +1,25 @@
 Features to add
 ===============
 * Support modules (yUML doesn't seem to support Packages yet)
+  - Create a png file for each module?
+
 * Make classes in the html file clickable, so that it links to
   the corresponding RDoc file
+
 * Add annotation - need to define how, and what -
-* "smart mode" where the types are inferred from variables name
+
+* How about an export to XMI? I think that sounds good.
+
+* Add a way to show dependencies between two classes
 
 Maintainance
 ============
-* Add a Diagram#valid_statement? method
-* Use ruby-yuml to generate the UML, when it implements class diagrams
-* Generate doc (rocco or RDoc)
+* Refactor ParserSexp class. It's ugly.
+
+Issues
+======
+* Make it support Ruby 1.9
 
 Grocery
 =======
-* Ketchup
+* Sriracha sauce :9

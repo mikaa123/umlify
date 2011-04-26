@@ -3,8 +3,7 @@ require 'optparse'
 
 module Umlify
 
-  # Class to run to execute umlify. It parses the ruby sources provided
-  # and generates and save a uml diagram using yUML API.
+  # Run an instance of Umlify program. Only intended for internal use.
   class Runner
 
     attr_reader :smart_mode, :html_mode
@@ -23,30 +22,26 @@ module Umlify
       if @args.empty?
         puts "Usage: umlify [source directory]"
       else
-        puts "umlifying"
+        parser_sexp = ParserSexp.new @args
 
-        @parser_sexp = ParserSexp.new @args
-
-        if classes = @parser_sexp.parse_sources!
-          @diagram = Diagram.new
+        if classes = parser_sexp.parse_sources!
+          diagram = Diagram.new
 
           if @smart_mode
             classes.each {|c| c.infer_types! classes}
           end
 
-          @diagram.create do
+          diagram.create do
             classes.each {|c| add c}
           end.compute!
 
-          puts "Downloading the image from yUML, it shouldn't be long."
-
-          image = download_image
+          image = download_image(diagram.get_uri)
           save_to_file image
 
-          puts 'http://yuml.me'+@diagram.get_uri if @html_mode
-          puts "Saved in uml.png"
+          puts 'http://yuml.me'+diagram.get_uri if @html_mode
+          puts "Saved in uml.png."
         else
-          puts "No ruby files in the directory"
+          puts "No ruby files in the directory."
         end
       end
 
@@ -56,13 +51,14 @@ module Umlify
       OptionParser.new do |opts|
         opts.on("-s", "--smart") { @smart_mode = true }
         opts.on("-h", "--html") { @html_mode = true }
+        opts.on("-v", "--version") { puts VERSION }
       end.parse! @args
     end
 
     # Downloads the image of the uml diagram from yUML
-    def download_image
+    def download_image uri
       Net::HTTP.start("yuml.me", 80) do |http|
-        http.get(URI.escape(@diagram.get_uri))
+        http.get(URI.escape(uri))
       end
     end
 

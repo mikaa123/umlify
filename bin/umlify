@@ -2,4 +2,5 @@
 
 require 'umlify'
 
-Umlify.execute ARGV
+runner = Umlify::Runner.new ARGV
+runner.run

@@ -81,5 +81,11 @@ module Umlify
       compute!
       uri = '/diagram/class/'+@statements.join(", ")
     end
+    
+    #returns just the DSL text for diagram
+    def get_dsl      
+      dsl = @statements.join(", ")
+      dsl
+    end
   end
 end

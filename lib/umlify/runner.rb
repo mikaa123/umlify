@@ -56,9 +56,14 @@ module Umlify
     end
 
     # Downloads the image of the uml diagram from yUML
-    def download_image uri
+    def download_image      
+      res = Net::HTTP.post_form(URI("http://yuml.me/diagram/scruffy/class/"), {"dsl_text"=>@diagram.get_dsl})
+      puts res.body
+      url = "http://yuml.me/#{res.body.strip()}"
+      puts url
+      #Net::HTTP.get(URI(url))
       Net::HTTP.start("yuml.me", 80) do |http|
-        http.get(URI.escape(uri))
+        http.get(URI.decode("/#{res.body}"))        
       end
     end
 

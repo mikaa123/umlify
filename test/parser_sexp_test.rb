@@ -164,7 +164,10 @@ class ParserSexpTest < Test::Unit::TestCase
     should "return an array of UmlClasses when the parsing is done" do
       p = Umlify::ParserSexp.new Dir[File.dirname(__FILE__)+'/fixtures/*']
       parsed_classes = p.parse_sources!
-      assert_equal 3, parsed_classes.count
+      assert_equal 4, parsed_classes.count
+    end
+
+    should "parse classes with ruby accessors" do
     end
 
   end

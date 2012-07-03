@@ -25,20 +25,20 @@ module Umlify
         parser_sexp = ParserSexp.new @args
 
         if classes = parser_sexp.parse_sources!
-          diagram = Diagram.new
+          @diagram = Diagram.new
 
           if @smart_mode
             classes.each {|c| c.infer_types! classes}
           end
 
-          diagram.create do
+          @diagram.create do
             classes.each {|c| add c}
           end.compute!
 
-          image = download_image(diagram.get_uri)
+          image = download_image(@diagram.get_uri)
           save_to_file image
 
-          puts 'http://yuml.me'+diagram.get_uri if @html_mode
+          puts 'http://yuml.me'+@diagram.get_uri if @html_mode
           puts "Saved in uml.png."
         else
           puts "No ruby files in the directory."

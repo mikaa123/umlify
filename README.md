@@ -17,6 +17,8 @@ Introduction
 
 umlify takes your ruby project's source code and creates an uml class diagram out of it.
 
+*NOTE*: [Umlify 2.0](https://github.com/mikaa123/umlify2) is currently being developped.
+
 Installation
 ------------
 

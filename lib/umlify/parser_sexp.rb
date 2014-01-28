@@ -56,8 +56,8 @@ module Umlify
       if class_s_exp[1].class == Symbol
         uml_class = UmlClass.new class_s_exp[1].to_s
       else
-        classname = class_s_exp[1][1][1].to_s+'::'+class_s_exp[1][2].to_s
-        uml_class = UmlClass.new classname
+        classname = recursive_class_name_find class_s_exp[1]
+        uml_class = UmlClass.new classname unless classname.nil?
       end
 
       # Let's start by building the associations of the class
@@ -69,11 +69,12 @@ module Umlify
       # Searching for a s(:const, :Const) right after the class name, which
       # means the class inherits from a parents class, :Const
       if class_s_exp[2] and class_s_exp[2][0] == :const
-        uml_class.parent = class_s_exp[2][1].to_s
+        classname = recursive_class_name_find class_s_exp[2]
+        uml_class.parent = classname unless classname.nil?
       elsif class_s_exp[2] and class_s_exp[2][0] == :colon2
         # If the parent class belongs to a module
-        classname = class_s_exp[2][1][1].to_s+'::'+class_s_exp[2][2].to_s
-        uml_class.parent = classname
+        classname = recursive_class_name_find class_s_exp[2]
+        uml_class.parent = classname unless classname.nil?
       end
 
       # Looks-up for instance methods
@@ -105,6 +106,13 @@ module Umlify
       end
     end
 
+    def recursive_class_name_find sexp
+      return nil if sexp.nil?
+      return sexp[1].to_s if sexp[0] == :const || sexp[0] == :colon3
+      classname = recursive_class_name_find sexp[1]
+      classname = "" if classname.nil?
+      return classname + '::' + sexp[2].to_s
+    end
   end
 end
 

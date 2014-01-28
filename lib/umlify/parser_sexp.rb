@@ -79,7 +79,8 @@ module Umlify
 
       # Looks-up for instance methods
       class_s_exp.each_of_type :defn do |instance_method|
-        uml_class.methods << instance_method[1].to_s
+        # Handle question marks in method names
+        uml_class.methods << instance_method[1].to_s.gsub(/\?/,"&#63;")
 
         # Now looking for @variables, inside instance methods
         # I'm looking at assignments such as @var = x

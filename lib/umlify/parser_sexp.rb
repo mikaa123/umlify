@@ -97,8 +97,7 @@ module Umlify
     def each_association_for a_class
       if comments = a_class.comments
         comments.split(/\n/).each do |line|
-          line.match(/type of @([\w]*): ([0-9.\*n]* )?([\w]*)\b/) do |m|
-
+          line.match(/type of @([\w]*): ([0-9.\*n]* )?([:|\w]*)\b/) do |m|
             yield m[1], m[3], (m[2].chop if m[2])
 
           end

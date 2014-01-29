@@ -56,8 +56,8 @@ module Umlify
       if class_s_exp[1].class == Symbol
         uml_class = UmlClass.new class_s_exp[1].to_s
       else
-        classname = class_s_exp[1][1][1].to_s+'::'+class_s_exp[1][2].to_s
-        uml_class = UmlClass.new classname
+        classname = recursive_class_name_find class_s_exp[1]
+        uml_class = UmlClass.new classname unless classname.nil?
       end
 
       # Let's start by building the associations of the class
@@ -69,16 +69,18 @@ module Umlify
       # Searching for a s(:const, :Const) right after the class name, which
       # means the class inherits from a parents class, :Const
       if class_s_exp[2] and class_s_exp[2][0] == :const
-        uml_class.parent = class_s_exp[2][1].to_s
+        classname = recursive_class_name_find class_s_exp[2]
+        uml_class.parent = classname unless classname.nil?
       elsif class_s_exp[2] and class_s_exp[2][0] == :colon2
         # If the parent class belongs to a module
-        classname = class_s_exp[2][1][1].to_s+'::'+class_s_exp[2][2].to_s
-        uml_class.parent = classname
+        classname = recursive_class_name_find class_s_exp[2]
+        uml_class.parent = classname unless classname.nil?
       end
 
       # Looks-up for instance methods
       class_s_exp.each_of_type :defn do |instance_method|
-        uml_class.methods << instance_method[1].to_s
+        # Handle question marks in method names
+        uml_class.methods << instance_method[1].to_s.gsub(/\?/,"&#63;")
 
         # Now looking for @variables, inside instance methods
         # I'm looking at assignments such as @var = x
@@ -96,8 +98,7 @@ module Umlify
     def each_association_for a_class
       if comments = a_class.comments
         comments.split(/\n/).each do |line|
-          line.match(/type of @([\w]*): ([0-9.\*n]* )?([\w]*)\b/) do |m|
-
+          line.match(/type of @([\w]*): ([0-9.\*n]* )?([:|\w]*)\b/) do |m|
             yield m[1], m[3], (m[2].chop if m[2])
 
           end
@@ -105,6 +106,13 @@ module Umlify
       end
     end
 
+    def recursive_class_name_find sexp
+      return nil if sexp.nil?
+      return sexp[1].to_s if sexp[0] == :const || sexp[0] == :colon3
+      classname = recursive_class_name_find sexp[1]
+      classname = "" if classname.nil?
+      return classname + '::' + sexp[2].to_s
+    end
   end
 end
 

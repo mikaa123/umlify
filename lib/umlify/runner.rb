@@ -1,4 +1,4 @@
-require 'net/http'
+require 'net/https'
 require 'optparse'
 
 module Umlify
@@ -38,7 +38,7 @@ module Umlify
           image = download_image(@diagram.get_uri)
           save_to_file image
 
-          puts 'http://yuml.me'+@diagram.get_uri if @html_mode
+          puts 'https://yuml.me'+@diagram.get_uri if @html_mode
           puts "Saved in uml.png."
         else
           puts "No ruby files in the directory."
@@ -65,12 +65,14 @@ module Umlify
     	  proxy_pass = ENV["HTTP_PROXY_PASS"]
     		connection = Net::HTTP::Proxy(proxy_host, proxy_port, proxy_user, proxy_pass)
     	end
-      res = connection.post_form(URI("http://yuml.me/diagram/scruffy/class/"), {"dsl_text"=>@diagram.get_dsl})
+      res = connection.post_form(URI("https://yuml.me/diagram/scruffy/class/"), {"dsl_text"=>@diagram.get_dsl})
       puts res.body
       url = "http://yuml.me/#{res.body.strip()}"
       puts url
       #Net::HTTP.get(URI(url))
-      connection.start("yuml.me", 80) do |http|
+      connection.start("yuml.me", 443,
+				:use_ssl => true, 
+				:verify_mode => OpenSSL::SSL::VERIFY_NONE) do |http|
         http.get(URI.decode("/#{res.body}"))        
       end
     end
